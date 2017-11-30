@@ -1,0 +1,17 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (44,45,46,47,48,49);unsigned long time_previous, time_current;int seconds=0;int minutes=0;int pre_seconds=0;
+void temp_Check(){  int reading = analogRead (56);
+  float voltage = reading *5.0 / 1024;  //Serial.print(voltage);  //Serial.print(" V: ");
+  float temperatureC = voltage * 100;  //Serial.print(temperatureC);  //Serial.print(" C: ");}
+void time_Check(){  time_current = millis ();  if(time_current - time_previous >= 1000) {    time_previous = time_current;    seconds++;
+    if (seconds == 60) {      seconds = 0;      minutes++;    }  }}
+void print_time(){  if (seconds <10) {    Serial.print( minutes);    Serial.print( " : ");    Serial.print( "0");    Serial.print( seconds);      }  else {    Serial.print( minutes);    Serial.print( " : ");    Serial.print( seconds);  }}
+void print_monitor(){  }void Move_DC() {  }
+void setting_Half_Mot() {
+}
+void Lighting_Tri() {  }
+void Lighting_Mono() {  }
+void set_button(){  }
+void setup() {  lcd.begin (16,2);  lcd.clear();  Serial.begin(9600);}
+void loop() { time_Check();  lcd.setCursor(0,0);  lcd.write("0");  lcd.setCursor(1,0);  lcd.write( minutes);  lcd.setCursor(2,0);  lcd.write(":");  lcd.setCursor(3,0);  lcd.write("0");  lcd.setCursor(4,0);  lcd.write(seconds); print_time(); delay(1000);
+ Serial.print("\n");}
